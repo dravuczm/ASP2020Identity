@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Todo>
+
+<h2>Saját tevékenységek</h2>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Name - @item.CreationTime</li>
+    }
+</ul>
+

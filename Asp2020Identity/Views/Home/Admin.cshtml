@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Todo>
+<h2>Admin Vezérlőpult</h2>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@item.Name - @item.UserId  - @item.CreationTime</li>
+    }
+</ul>
+
