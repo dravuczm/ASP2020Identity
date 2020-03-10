@@ -14,5 +14,6 @@ namespace Asp2020Identity.Data
         {
         }
         public DbSet<Todo> Todos { get; set; }
+        public DbSet<SiteUser> SiteUsers { get; set; }
     }
 }

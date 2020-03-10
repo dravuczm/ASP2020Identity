@@ -57,6 +57,7 @@ namespace Asp2020Identity.Controllers
         [Authorize(Roles = "Admins")]
         public IActionResult Admin()
         {
+            var todos = database.Todos.ToArray();
             return View(database.Todos);
         }
 
@@ -72,11 +73,12 @@ namespace Asp2020Identity.Controllers
             var myself = this.User;
 
             //IdentityUser objektum lekérés
-            IdentityUser current =
-                await usermanager.GetUserAsync(myself);
+            SiteUser current =
+                await usermanager.GetUserAsync(myself) as SiteUser;
 
             t.UserId = current.Id;
-
+            t.Creator = current;
+            
             database.Todos.Add(t);
             database.SaveChanges();
             return View();

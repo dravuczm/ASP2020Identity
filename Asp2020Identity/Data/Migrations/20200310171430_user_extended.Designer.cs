@@ -4,14 +4,16 @@ using Asp2020Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asp2020Identity.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200310171430_user_extended")]
+    partial class user_extended
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace Asp2020Identity.Data.Migrations
 
                     b.Property<DateTime>("CreationTime");
 
-                    b.Property<string>("CreatorId");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30);
@@ -37,8 +37,6 @@ namespace Asp2020Identity.Data.Migrations
                         .HasMaxLength(70);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
 
                     b.ToTable("Todos");
                 });
@@ -224,13 +222,6 @@ namespace Asp2020Identity.Data.Migrations
                     b.ToTable("SiteUser");
 
                     b.HasDiscriminator().HasValue("SiteUser");
-                });
-
-            modelBuilder.Entity("Asp2020Identity.Models.Todo", b =>
-                {
-                    b.HasOne("Asp2020Identity.Models.SiteUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

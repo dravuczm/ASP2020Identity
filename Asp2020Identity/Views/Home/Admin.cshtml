@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<Todo>
 <h2>Admin Vezérlőpult</h2>
 
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>@item.Name - @item.UserId  - @item.CreationTime</li>
-    }
-</ul>
+@foreach (var item in Model.GroupBy(t => t.Creator))
+{
+    <h3>@item.Key.FirstName @item.Key.LastName teendői</h3>
+    <ul>
+        @foreach (var todo in 
+            Model.Where(t => t.Creator == item.Key))
+        {
+            <li>@todo.Name</li>
+        }
+    </ul>
+}
 

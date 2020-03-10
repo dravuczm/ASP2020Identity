@@ -20,5 +20,7 @@ namespace Asp2020Identity.Models
 
         [StringLength(70)]
         public string UserId { get; set; }
+
+        public virtual SiteUser Creator { get; set; }
     }
 }

@@ -35,9 +35,19 @@ namespace Asp2020Identity
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication().AddFacebook(opt =>
+            {
+                opt.AppId = "549109035729542";
+                opt.AppSecret = "eef219a811164b6fcde30c97d4b60de7";
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseLazyLoadingProxies();
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                        Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             services.AddIdentity<IdentityUser, IdentityRole>(t =>
             {
                 //jelszóházirend
@@ -46,7 +56,8 @@ namespace Asp2020Identity
                 t.Password.RequireUppercase = false;
             }
             )
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -68,6 +79,8 @@ namespace Asp2020Identity
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            
 
             app.UseAuthentication();
 
